@@ -9,7 +9,13 @@
                   <sheet>
                       <group>
                           <field name="map_field"/>
-                          <field name="error_text"/>
+                          <field name="import_history">
+                              <tree>
+                                   <field name="filename"/>
+                                   <field name="state"/>
+                                   <field name="note"/>
+                              </tree>
+                          </field>
                       </group>
                   </sheet>
               </form>
@@ -33,12 +39,11 @@
           <field name="arch" type="xml">
              <form>
                   <group>
-                     <field name="data"/>
-                     <field name="map_field"/>   
+                     <field name="zip_path"/>
+                     <field name="map_field"/>
                   </group>
                   <footer>
-                      <field name="filename" readonly="1" invisible="1"/>
-                      <button type="object" name="import_images" string="Import Images" readonly="1" filename="filename"/>
+                      <button type="object" name="import_images" string="Import Images" readonly="1"/>
                   </footer>
               </form>
           </field>

@@ -1,7 +1,7 @@
 {
-    'name': "Mass Import Customer Images Beta",
+    'name': "Mass Import Customer Images",
     'version': "1.0",
-    'author': "tagsbm",
+    'author': "Anonymous",
     'category': "Tools",
     'data': [
         'mass_customer_image_migrate.xml',
