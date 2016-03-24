@@ -43,7 +43,7 @@
                      <field name="map_field"/>
                   </group>
                   <footer>
-                      <button type="object" name="import_images" string="Import Images" readonly="1"/>
+                      <button type="object" name="import_images" string="Import Images"/>
                   </footer>
               </form>
           </field>
@@ -67,8 +67,9 @@
           <field name="target">new</field>
       </record>
    
-      <menuitem id="mass_customer_image_migrate_menu" name="MICP History" parent="base.menu_base_config" action="mass_customer_image_migrate_action" sequence="100"/>
-      <menuitem id="mass_customer_image_migrate_wizard_menu" name="Mass Import Customer Photos" parent="base.menu_base_config" action="mass_customer_image_migrate_wizard_action" sequence="90"/>
+      <menuitem id="mcim_migrate" name="Migrate" parent="base.menu_administration" sequence="90"/>      
+      <menuitem id="mass_customer_image_migrate_wizard_menu" name="Import Partner Images" parent="mcim_migrate" action="mass_customer_image_migrate_wizard_action" sequence="90"/>
+      <menuitem id="mass_customer_image_migrate_menu" name="Import History" parent="mcim_migrate" action="mass_customer_image_migrate_action" sequence="100"/>
       
   </data>
 </openerp>

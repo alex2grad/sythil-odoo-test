@@ -7,11 +7,11 @@ _logger = logging.getLogger(__name__)
 from StringIO import StringIO
 import os
 
-class crm_migrate_image_wizard(models.TransientModel):
+class CrmMigrateImageWizard(models.TransientModel):
 
     _name = "crm.migrate.image.wizard"
 
-    zip_path = fields.Char('Upload path', default="/odoo/import/import.zip")
+    zip_path = fields.Char(string='Zip File Path', default="/odoo/import/import.zip")
     map_field = fields.Many2one('ir.model.fields', domain="[('model_id.model','=','res.partner'),('ttype','=','integer')]", string='Mapping Field')
     
     @api.one
@@ -43,21 +43,21 @@ class crm_migrate_image_wizard(models.TransientModel):
 		#customer does not exist
                 self.env['import.image.history'].create({'migrate_image_id':import_object['id'],'filename':name,'state':'Failure','note':'No record with this id'})
     
-class crm_migrate_image(models.Model):
+class CrmMigrateImage(models.Model):
 
     _name = "crm.migrate.image"
 
     map_field = fields.Many2one('ir.model.fields', domain="[('model_id.model','=','res.partner')]", string='Mapping Field', readonly='True')
-    filename = fields.Char()
-    import_history = fields.One2many('import.image.history','migrate_image_id');
+    filename = fields.Char(string="Filename")
+    import_history = fields.One2many('import.image.history','migrate_image_id', string="Imported Images");
     
     
-class import_history(models.Model):
+class ImportImageHistory(models.Model):
 
     _name = "import.image.history"
     _order = "state asc"
 
-    migrate_image_id = fields.Many2one('crm.migrate.image')
-    filename = fields.Char()
-    state = fields.Char()
-    note = fields.Text()
+    migrate_image_id = fields.Many2one('crm.migrate.image', string="Migrate ID")
+    filename = fields.Char(string="Filename")
+    state = fields.Char(string="State")
+    note = fields.Text(string="Note")

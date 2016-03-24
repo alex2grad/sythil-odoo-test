@@ -1,4 +1,4 @@
-"gateway_model_name","name"
-"esms.smsgateway","SMSGATEWAY"
-"esms.smsglobal","SMS GLOBAL"
-"esms.clickatell","CLICKATELL"
+"id","gateway_model_name","name"
+"esms_twilio","esms.twilio","TWILIO"
+"esms_smsgateway","esms.smsgateway","SMSGATEWAY"
+"esms_smsglobal","esms.smsglobal","SMS GLOBAL"

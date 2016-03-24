@@ -20,7 +20,7 @@ class clickatell_core(models.Model):
         format_number = to_number
         if " " in format_number: format_number.replace(" ", "")
         if "+" in format_number: format_number = format_number.replace("+", "")
-        clickatell_url = "http://api.clickatell.com/http/sendmsg?user=" + sms_account.clickatell_username + "&password=" + sms_account.clickatell_password + "&api_id=" + sms_account.clickatell_api_id + "&from=" + self.env.user.partner_id.mobile + "&to=" + format_number + "&text=" + sms_content
+        clickatell_url = "http://api.clickatell.com/http/sendmsg?user=" + str(sms_account.clickatell_username) + "&password=" + str(sms_account.clickatell_password) + "&api_id=" + str(sms_account.clickatell_api_id) + "&from=" + str(self.env.user.partner_id.mobile) + "&to=" + str(format_number) + "&text=" + str(sms_content)
         response_string = requests.get(clickatell_url)
         
         response_code = ""

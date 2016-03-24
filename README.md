@@ -1,0 +1,3 @@
+# sythil-tech v8 account mislabeled as SythilBlade...
+Free v8 modules for the Odoo community.
+For v9 see https://github.com/SythilTech/Odoo9

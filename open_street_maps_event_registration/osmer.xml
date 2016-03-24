@@ -2,7 +2,6 @@
 <openerp>
   <data>
 
-  
       <record model="ir.ui.view" id="osmer_view">
           <field name="name">osmer view</field>
           <field name="model">event.event</field>
@@ -12,48 +11,7 @@
       	          <button name="open_map" type="object" string="Show Registrant Map"/>
       	      </xpath>
       	  </field>
-      </record>
-      
-      <!--
-      <template id="osmer_map">
-      &lt;!DOCTYPE html&gt;
-      <html>
-          <head>
-              <title>Leaflet Quick Start Guide Example</title>
-	      <meta charset="utf-8" />
-	      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-              <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
-              <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
-          </head>
-          <body>
-              <div id="map" style="width: 600px; height: 400px"></div>
-	      <script>
-
-		var map = L.map('map').setView([-37.82118, 144.96323], 13);
-
-		L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
-			maxZoom: 18,
-			attribution: 'Map data copyright <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-				'Imagery copyright <a href="http://mapbox.com">Mapbox</a>',
-			id: 'examples.map-i875mjb7'
-		}).addTo(map);
-
-
-		L.marker([51.5, -0.09]).addTo(map)
-			.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
-
-			
-		L.marker([52.5, -0.09]).addTo(map)
-			.bindPopup("<b>Bye world!</b><br />I am a popup.").openPopup();
-		
-	</script>
-</body>
-</html>
-</template>
--->
-      
-      
+      </record>      
       
     </data>
 </openerp>

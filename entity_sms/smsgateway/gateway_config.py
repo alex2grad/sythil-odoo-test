@@ -20,7 +20,7 @@ class smsgateway_core(models.Model):
         format_number = to_number
         if " " in format_number: format_number.replace(" ", "")
         if "+" in format_number: format_number = format_number.replace("+", "")
-        smsgateway_url = "http://smsgateway.ca/sendsms.aspx?CellNumber=" + format_number + "&MessageBody=" + sms_content + "&AccountKey=" + sms_account.smsgateway_accountkey
+        smsgateway_url = "http://smsgateway.ca/sendsms.aspx?CellNumber=" + str(format_number) + "&MessageBody=" + str(sms_content) + "&AccountKey=" + str(sms_account.smsgateway_accountkey)
         response_string = requests.get(smsgateway_url)
 
         response_code = ""
