@@ -78,27 +78,25 @@ class twilio_core(models.Model):
                 payload = {'DateSent>': str(my_time.strftime('%Y-%m-%d'))}
             response_string = requests.get("https://api.twilio.com/2010-04-01/Accounts/" + sms_account.twilio_account_sid + "/Messages", data=payload, auth=(str(sms_account.twilio_account_sid), str(sms_account.twilio_auth_token)))
             root = etree.fromstring(str(response_string.text.encode('utf-8')))
-            
-            
-            #get all pages
+
+            #get 1st page
             messages_tag = root.xpath('//Messages')
-            
-            
-            num_pages = messages_tag[0].attrib['numpages']
-            for sms_page in xrange(0, int(num_pages)):
+
+	    while True:
                 my_messages = messages_tag[0].xpath('//Message')
                 for sms_message in my_messages:
-                    
+
                     #only get the inbound ones as we track the outbound ones back to a user profile
                     if sms_message.find('Direction').text == "inbound":
                         self._add_message(sms_message, account_id)
-                        
+
                 #get the next page if there is one
-                if sms_page < (int(num_pages) - 1):
+                if messages_tag[0].attrib['nextpageuri'] :
                     response_string = requests.get("https://api.twilio.com" + messages_tag[0].attrib['nextpageuri'], data=payload, auth=(str(sms_account.twilio_account_sid), str(sms_account.twilio_auth_token)))
 		    root = etree.fromstring(str(response_string.text.encode('utf-8')))
 		    messages_tag = root.xpath('//Messages')
-		
+		else:
+		    break
 	
         sms_account.twilio_last_check_date = datetime.utcnow()
             
