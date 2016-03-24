@@ -74,7 +74,7 @@ class esms_mass_sms(models.Model):
             my_model = self.env['ir.model'].search([('model','=','res.partner')])
             
             #unlike single sms we record down failed attempts to send since mass sms works in a "best try" matter, while single sms works in a "try again" matter.
-            esms_history = self.env['esms.history'].create({'mass_sms_id': self.id, 'record_id': rec.id,'model_id':my_model[0].id,'account_id':self.from_mobile.account_id.id,'from_mobile':self.from_mobile.mobile_number,'to_mobile':rec.mobile_e164,'sms_content':message_final,'status_string':my_sms.response_string, 'direction':'O','my_date':datetime.utcnow(), 'status_code':my_sms.delivary_state, 'sms_gateway_message_id':my_sms.message_id, 'gateway_id': self.from_mobile.account_id.account_gateway.id})
+            esms_history = self.env['esms.history'].create({'mass_sms_id': self.id, 'record_id': rec.id,'model_id':my_model[0].id,'account_id':self.from_mobile.account_id.id,'from_mobile':self.from_mobile.mobile_number,'to_mobile':rec.mobile_e164,'sms_content':message_final,'status_string':my_sms.response_string, 'direction':'O','my_date':datetime.utcnow(), 'status_code':my_sms.delivary_state, 'sms_gateway_message_id':my_sms.message_id, 'gateway_id': self.from_mobile.account_id.account_gateway.id, 'delivary_error_string':my_sms.human_read_error})
             
             #record the message in the communication log
             self.env['res.partner'].browse(rec.id).message_post(body=message_final, subject="Mass SMS Sent")
