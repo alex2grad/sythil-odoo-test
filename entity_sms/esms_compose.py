@@ -63,7 +63,7 @@ class esms_compose(models.Model):
 	    my_model = self.env['ir.model'].search([('model','=',self.model_id)])
 
 	    #for single smses we only record succesful sms, failed ones reopen the form with the error message
-	    esms_history = self.env['esms.history'].create({'record_id': self.record_id,'model_id':my_model[0].id,'account_id':self.sms_gateway.id,'from_mobile':self.from_number,'to_mobile':self.to_number,'sms_content':self.sms_content,'status_string':my_sms.response_string, 'direction':'O','my_date':datetime.utcnow(), 'status_code':my_sms.delivary_state, 'sms_gateway_message_id':my_sms.message_id, 'gateway_id': self.sms_gateway.account_gateway.id})
+	    esms_history = self.env['esms.history'].create({'record_id': self.record_id,'model_id':my_model[0].id,'account_id':self.from_mobile.account_id.id,'from_mobile':self.from_mobile.mobile_number,'to_mobile':self.to_number,'sms_content':self.sms_content,'status_string':my_sms.response_string, 'direction':'O','my_date':datetime.utcnow(), 'status_code':my_sms.delivary_state, 'sms_gateway_message_id':my_sms.message_id, 'gateway_id': self.sms_gateway.account_gateway.id})
 	    self.env[self.model_id].search([('id','=', self.record_id)]).message_post(body=self.sms_content, subject="SMS Sent")
         
 class esms_mms(models.Model):
