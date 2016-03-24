@@ -27,6 +27,7 @@
         'twilio/gateway_config.xml',
         'ir_actions.xml',
         'esms_settings.xml',
+	'views/partner.xml',
     ],
     'demo': [],
     'depends': ['web', 'crm','marketing'],
