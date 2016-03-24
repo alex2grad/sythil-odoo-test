@@ -13,6 +13,7 @@
                           <field name="twilio_auth_token"/>
                           <field name="twilio_last_check_date"/>
                           <button name="twilio_quick_setup" type="object" string="Quick Setup" help="Points Twilio to your odoo server"/>
+                          <button name="twilio_check_all_messages" type="object" string="Check New Messages" help="Check new incoming messages"/>
                       </group>
     	          </div>
       	      </xpath>

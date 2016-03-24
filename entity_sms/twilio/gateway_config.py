@@ -200,3 +200,7 @@ class twilio_conf(models.Model):
         else:
             raise osv.except_osv(("Setup Failed"), ("Bad Credentials"))
 
+    @api.one
+    def twilio_check_all_messages(self):
+	sms_account = self.env['esms.accounts'].search([('id','=',self.id)])
+	self.env[sms_account.account_gateway.gateway_model_name].check_messages(self.id)
