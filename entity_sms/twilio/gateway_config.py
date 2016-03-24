@@ -32,7 +32,7 @@ class twilio_core(models.Model):
         
         #send the sms/mms
         base_url = self.env['ir.config_parameter'].search([('key','=','web.base.url')])[0].value
-        payload = {'From': str(format_from), 'To': str(format_to), 'Body': str(sms_content), 'StatusCallback': base_url + "/sms/twilio/receipt"}
+        payload = {'From': str(format_from), 'To': str(format_to), 'Body': str(sms_content.encode('utf-8')), 'StatusCallback': base_url + "/sms/twilio/receipt"}
         response_string = requests.post("https://api.twilio.com/2010-04-01/Accounts/" + str(sms_account.twilio_account_sid) + "/Messages", data=payload, auth=(str(sms_account.twilio_account_sid), str(sms_account.twilio_auth_token)))
 
         #Analyse the reponse string and determine if it sent successfully other wise return a human readable error message   
