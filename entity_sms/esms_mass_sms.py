@@ -8,6 +8,7 @@ class esms_mass_sms(models.Model):
 
     _name = "esms.mass.sms"
     _order = "create_date desc"
+    _rec_name = "create_date"
     
     from_mobile = fields.Many2one('esms.verified.numbers', string="From Mobile", domain="[('mobile_verified','=','True')]")
     selected_records = fields.Many2many('res.partner', string="Selected Records", domain="[('sms_opt_out','=',False),('mobile','!=','')]")

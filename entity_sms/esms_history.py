@@ -8,6 +8,7 @@ class EsmsHistory(models.Model):
 
     _name = "esms.history"
     _order = "my_date desc"
+    _rec_name = "my_date"
     
     record_id = fields.Integer(readonly=True, string="Record")
     account_id = fields.Many2one('esms.accounts', readonly=True, string="SMS Account")
