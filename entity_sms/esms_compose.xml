@@ -11,7 +11,7 @@
       	              <field name="record_id" invisible="1"/>      	              
                       <field name="model_id" invisible="1"/>
       	              <field name="template_id" domain="[('model_id.model','=',model_id)]" />
-      	              <field name="from_mobile" />
+      	              <field name="from_mobile" widget="selection"/>
       	              <field name="to_number" />
       	              <field name="sms_content"/>
       	              <!--
