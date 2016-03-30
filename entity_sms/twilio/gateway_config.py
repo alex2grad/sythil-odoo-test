@@ -37,7 +37,7 @@ class twilio_core(models.Model):
 
         #Analyse the reponse string and determine if it sent successfully other wise return a human readable error message   
         human_read_error = ""
-        root = etree.fromstring(response_string.text.encode('utf-8'))
+        root = etree.fromstring(response_string.content)
         my_elements_human = root.xpath('/TwilioResponse/RestException/Message')
         if len(my_elements_human) != 0:
 	    human_read_error = my_elements_human[0].text
@@ -64,7 +64,7 @@ class twilio_core(models.Model):
         if message_id != "":
             payload = {}
             response_string = requests.get("https://api.twilio.com/2010-04-01/Accounts/" + sms_account.twilio_account_sid + "/Messages/" + message_id, data=payload, auth=(str(sms_account.twilio_account_sid), str(sms_account.twilio_auth_token)))
-	    root = etree.fromstring(str(response_string.text.encode('utf-8')))
+	    root = etree.fromstring(response_string.content)
 	    my_messages = root.xpath('//Message')
             sms_message = my_messages[0]
             #only get the inbound ones as we track the outbound ones back to a user profile
@@ -77,7 +77,7 @@ class twilio_core(models.Model):
                 my_time = datetime.strptime(sms_account.twilio_last_check_date,'%Y-%m-%d %H:%M:%S')
                 payload = {'DateSent>': str(my_time.strftime('%Y-%m-%d'))}
             response_string = requests.get("https://api.twilio.com/2010-04-01/Accounts/" + sms_account.twilio_account_sid + "/Messages", data=payload, auth=(str(sms_account.twilio_account_sid), str(sms_account.twilio_auth_token)))
-            root = etree.fromstring(str(response_string.text.encode('utf-8')))
+            root = etree.fromstring(response_string.content)
 
             #get 1st page
             messages_tag = root.xpath('//Messages')
@@ -93,7 +93,7 @@ class twilio_core(models.Model):
                 #get the next page if there is one
                 if messages_tag[0].attrib['nextpageuri'] :
                     response_string = requests.get("https://api.twilio.com" + messages_tag[0].attrib['nextpageuri'], data=payload, auth=(str(sms_account.twilio_account_sid), str(sms_account.twilio_auth_token)))
-		    root = etree.fromstring(str(response_string.text.encode('utf-8')))
+		    root = etree.fromstring(response_string.content)
 		    messages_tag = root.xpath('//Messages')
 		else:
 		    break
@@ -156,7 +156,7 @@ class twilio_core(models.Model):
     def delivary_receipt(self, account_sid, message_id):
         my_account = self.env['esms.accounts'].search([('twilio_account_sid','=', account_sid)])[0]
         response_string = requests.get("https://api.twilio.com/2010-04-01/Accounts/" + my_account.twilio_account_sid + "/Messages/" + message_id, auth=(str(my_account.twilio_account_sid), str(my_account.twilio_auth_token)))
-        root = etree.fromstring(str(response_string.text.encode('utf-8')))
+        root = etree.fromstring(response_string.content)
         
         
         #map the Twilio delivary code to the esms delivary states 
@@ -190,7 +190,7 @@ class twilio_conf(models.Model):
             response_string_twilio_numbers = requests.get("https://api.twilio.com/2010-04-01/Accounts/" + self.twilio_account_sid + "/IncomingPhoneNumbers", auth=(str(self.twilio_account_sid), str(self.twilio_auth_token)))
             
             #go through each twilio number in the account and set the the sms url
-            root = etree.fromstring(str(response_string_twilio_numbers.text.encode('utf-8')))
+            root = etree.fromstring(response_string_twilio_numbers.content)
 	    my_from_number_list = root.xpath('//IncomingPhoneNumber')
 	    for my_from_number in my_from_number_list:
 	        av_phone = my_from_number.xpath('//PhoneNumber')[0].text
