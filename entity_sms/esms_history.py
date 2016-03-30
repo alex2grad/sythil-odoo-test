@@ -54,9 +54,3 @@ class EsmsHistory(models.Model):
             if new_rec.model_id.model == "res.partner": 
                 self.env['res.partner'].browse(new_rec.record_id).message_post(body=autores.sms_content, subject="SMS Auto Response")
 
-	
-	if new_rec.sms_content == 'STOP' and new_rec.direction == 'I' and new_rec.model_name == 'res.partner':
-	    for rec in self.env['res.partner'].search([('id','=',new_rec.record_id)]):
-	        rec.sms_opt_out = True
-	        #Send opt out response
-                self.env[new_rec.account_id.account_gateway.gateway_model_name].send_message(new_rec.account_id.id, new_rec.to_mobile, new_rec.from_mobile, 'You have been unsubscribed from mass sms', new_rec.model_id.model, new_rec.record_id, new_rec.field_id.name)

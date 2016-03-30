@@ -68,7 +68,7 @@ class esms_mass_sms(models.Model):
         for rec in self.selected_records:
             sms_rendered_content = self.env['esms.templates'].render_template(self.message_text, 'res.partner', rec.id)
 
-            message_final = sms_rendered_content + "\n\nReply STOP to stop receiving sms"
+            message_final = sms_rendered_content
             gateway_model = self.from_mobile.account_id.account_gateway.gateway_model_name
 	    my_sms = self.env[gateway_model].send_message(self.from_mobile.account_id.id, self.from_mobile.mobile_number, rec.mobile_e164, message_final, "esms.mass.sms", self.id, "mobile")
             my_model = self.env['ir.model'].search([('model','=','res.partner')])
