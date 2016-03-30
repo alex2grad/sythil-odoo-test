@@ -51,7 +51,7 @@
             <field name="name">esms.history.kanban</field>
             <field name="model">esms.history</field>
             <field name="arch" type="xml">
-                <kanban>
+                <kanban edit="false" create="false">
                     <field name="record_name"/>
                     <field name="sms_content"/>
                     <field name="direction"/>
