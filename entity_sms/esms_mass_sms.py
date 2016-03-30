@@ -7,6 +7,7 @@ from datetime import datetime
 class esms_mass_sms(models.Model):
 
     _name = "esms.mass.sms"
+    _order = "create_date desc"
     
     from_mobile = fields.Many2one('esms.verified.numbers', string="From Mobile", domain="[('mobile_verified','=','True')]")
     selected_records = fields.Many2many('res.partner', string="Selected Records", domain="[('sms_opt_out','=',False),('mobile','!=','')]")
@@ -15,7 +16,7 @@ class esms_mass_sms(models.Model):
     fail_count = fields.Integer(string="Failed", compute="_fail_count")
     queue_count = fields.Integer(string="Queue", compute="_queue_count")
     sent_count = fields.Integer(string="Sent", compute="_sent_count")
-    delivered_count = fields.Integer(string="Received", compute="_delivered_count")
+    delivered_count = fields.Integer(string="Delivered", compute="_delivered_count")
     mass_sms_state = fields.Selection((('draft','Draft'),('sent','Sent')), readonly=True, string="State", default="draft")
     model_object_field = fields.Many2one('ir.model.fields', string="Field", domain="[('model_id.model','=','res.partner'),('ttype','!=','one2many'),('ttype','!=','many2many')]", help="Select target field from the related document model.\nIf it is a relationship field you will be able to select a target field at the destination of the relationship.")
     sub_object = fields.Many2one('ir.model', string='Sub-model', readonly=True, help="When a relationship field is selected as first field, this field shows the document model the relationship goes to.")

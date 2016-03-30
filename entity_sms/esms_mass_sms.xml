@@ -30,11 +30,13 @@
                             <page string="Content">
 
       	              <group>
+      	                  <field name="create_date"/>
+      	        	  <field name="create_uid" string="By"/>
       	                  <field name="from_mobile" widget="selection" attrs="{'readonly': [('mass_sms_state', '=', 'sent')]}"/>
       	                  <field name="selected_records" attrs="{'readonly': [('mass_sms_state', '=', 'sent')]}" context="{'search_default_customer':True}">
       	                      <tree>
       	                          <field name="name"/>
-      	                          <field name="mobile_e164"/>
+      	                          <field name="mobile_e164" string="Mobile"/>
       	                      </tree>
       	                  </field>
       	                  <field name="total_count"/>
@@ -62,6 +64,8 @@
           <field name="model">esms.mass.sms</field>
           <field name="arch" type="xml">
       	      <tree>
+      	          <field name="create_date"/>
+      	          <field name="create_uid" string="By"/>
       	          <field name="from_mobile"/>
       	          <field name="total_count"/>
       	          <field name="message_text"/>
