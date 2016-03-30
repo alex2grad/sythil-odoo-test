@@ -119,7 +119,7 @@
       </record>
 
       <record model="ir.actions.act_window" id="esms_history_failed_action">
-          <field name="name">SMS history</field>
+          <field name="name">Failed SMS</field>
           <field name="res_model">esms.history</field>
           <field name="view_type">form</field>
           <field name="view_mode">kanban,tree,form</field>
@@ -130,7 +130,7 @@
       </record>
       
       <record model="ir.actions.act_window" id="esms_history_queued_action">
-          <field name="name">SMS history</field>
+          <field name="name">Queued SMS</field>
           <field name="res_model">esms.history</field>
           <field name="view_type">form</field>
           <field name="view_mode">kanban,tree,form</field>
@@ -141,7 +141,7 @@
       </record>
       
       <record model="ir.actions.act_window" id="esms_history_sent_action">
-          <field name="name">SMS history</field>
+          <field name="name">Sent SMS</field>
           <field name="res_model">esms.history</field>
           <field name="view_type">form</field>
           <field name="view_mode">kanban,tree,form</field>
@@ -152,7 +152,7 @@
       </record>
       
       <record model="ir.actions.act_window" id="esms_history_delivered_action">
-          <field name="name">SMS history</field>
+          <field name="name">Delivered SMS</field>
           <field name="res_model">esms.history</field>
           <field name="view_type">form</field>
           <field name="view_mode">kanban,tree,form</field>
