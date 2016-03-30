@@ -9,6 +9,14 @@ class esms_compose(models.Model):
 
     _name = "esms.compose"
 
+    def _get_default_sms_number(self, cr, uid, user_id=False, context=None):
+        sms_number = self.pool.get('res.users').browse(cr, uid, user_id or uid, context).default_sms_number.id or False
+        return sms_number
+
+    _defaults = {
+	'from_mobile': lambda s, cr, uid, c: s._get_default_sms_number(cr, uid, context=c),
+    }
+
     def compute_default_value(self):
         return self.env.user.partner_id.mobile
     

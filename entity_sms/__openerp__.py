@@ -9,6 +9,7 @@
         'ir.cron.csv',
         'esms_core.xml',
         'res_partner.xml',
+        'res_user.xml',
         'crm_lead.xml',
         'esms_history.xml',
         'esms_accounts.xml',
