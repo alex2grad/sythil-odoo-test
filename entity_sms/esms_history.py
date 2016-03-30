@@ -25,6 +25,9 @@ class EsmsHistory(models.Model):
     sms_gateway_message_id = fields.Char(string="SMS Gateway Message ID", readonly=True)
     direction = fields.Selection((("I","INBOUND"),("O","OUTBOUND")), string="Direction", readonly=True)
     my_date = fields.Datetime(string="Send/Receive Date", readonly=True, help="The date and time the sms is received or sent")
+    my_uid = fields.Many2one('res.users', readonly=True, string="The owner of sms")
+    sms_uid = fields.Many2one('res.users', readonly=True, string="By", compute='_compute_sms_uid', store=True)
+    is_my_uid = fields.Boolean(readonly=True, default=True)
     delivary_error_string = fields.Text(string="Delivary Error")
 
     @api.one
@@ -39,6 +42,14 @@ class EsmsHistory(models.Model):
                 self.record_name = self.to_mobile
                 
                 
+    @api.one
+    @api.depends('my_uid','create_uid')
+    def _compute_sms_uid(self):
+	if self.my_uid.id > 0:
+	    self.sms_uid=self.my_uid
+	else:
+	    self.sms_uid=self.create_uid
+
     @api.model
     def create(self, values):
         new_rec = super(EsmsHistory, self).create(values)

@@ -141,8 +141,17 @@ class twilio_core(models.Model):
 	        
 	    self.env[target_model].search([('id','=', record_id.id)]).message_post(body=sms_message.find('Body').text, subject="SMS Received")
 	    
+	    #look for a last message sent to this number
+	    sent_history_id = self.env['esms.history'].search([('to_mobile','=', sms_message.find('From').text),('from_mobile','=',sms_message.find('To').text), ('direction','=','O')],0,1,'create_date desc')
+	    sent_uid = 0
+	    is_my_uid = False
+	    if len(sent_history_id) > 0:
+		sent_uid = sent_history_id.create_uid.id
+		is_my_uid = True
+
 	    #Create the sms record in history
-	    history_id = self.env['esms.history'].create({'account_id': account_id, 'status_code': "RECEIVED", 'gateway_id': twilio_gateway_id[0].id, 'from_mobile': sms_message.find('From').text, 'to_mobile': sms_message.find('To').text, 'sms_gateway_message_id': sms_message.find('Sid').text, 'sms_content': sms_message.find('Body').text, 'direction':'I', 'my_date':sms_message.find('DateUpdated').text, 'model_id':model_id.id, 'record_id':record_id, 'field_id':field_id.id})
+	    history_id = self.env['esms.history'].create({'my_uid':sent_uid, 'is_my_uid':is_my_uid, 'account_id': account_id, 'status_code': "RECEIVED", 'gateway_id': twilio_gateway_id[0].id, 'from_mobile': sms_message.find('From').text, 'to_mobile': sms_message.find('To').text, 'sms_gateway_message_id': sms_message.find('Sid').text, 'sms_content': sms_message.find('Body').text, 'direction':'I', 'my_date':sms_message.find('DateUpdated').text, 'model_id':model_id.id, 'record_id':record_id, 'field_id':field_id.id})
+
                     
     def delivary_receipt(self, account_sid, message_id):
         my_account = self.env['esms.accounts'].search([('twilio_account_sid','=', account_sid)])[0]
