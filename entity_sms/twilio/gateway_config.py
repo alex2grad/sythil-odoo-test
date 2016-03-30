@@ -71,12 +71,13 @@ class twilio_core(models.Model):
             if sms_message.xpath('//Direction')[0].text == "inbound":
                 self._add_message(sms_message, account_id)        
         else:
-            #get a list of all new inbound message since the last check date
+            #get a list of all new inbound message since the last check time
             payload = {}
             if sms_account.twilio_last_check_date != False:
                 my_time = datetime.strptime(sms_account.twilio_last_check_date,'%Y-%m-%d %H:%M:%S')
-                payload = {'DateSent>': str(my_time.strftime('%Y-%m-%d'))}
-            response_string = requests.get("https://api.twilio.com/2010-04-01/Accounts/" + sms_account.twilio_account_sid + "/Messages", data=payload, auth=(str(sms_account.twilio_account_sid), str(sms_account.twilio_auth_token)))
+                payload = {'DateSent>': str(my_time.strftime('%Y-%m-%d %H:%M:%S'))}
+
+            response_string = requests.get("https://api.twilio.com/2010-04-01/Accounts/" + sms_account.twilio_account_sid + "/Messages", params=payload, auth=(str(sms_account.twilio_account_sid), str(sms_account.twilio_auth_token)))
             root = etree.fromstring(response_string.content)
 
             #get 1st page
@@ -92,7 +93,7 @@ class twilio_core(models.Model):
 
                 #get the next page if there is one
                 if messages_tag[0].attrib['nextpageuri'] :
-                    response_string = requests.get("https://api.twilio.com" + messages_tag[0].attrib['nextpageuri'], data=payload, auth=(str(sms_account.twilio_account_sid), str(sms_account.twilio_auth_token)))
+                    response_string = requests.get("https://api.twilio.com" + messages_tag[0].attrib['nextpageuri'], auth=(str(sms_account.twilio_account_sid), str(sms_account.twilio_auth_token)))
 		    root = etree.fromstring(response_string.content)
 		    messages_tag = root.xpath('//Messages')
 		else:
