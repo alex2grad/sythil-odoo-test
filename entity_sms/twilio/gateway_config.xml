@@ -9,10 +9,10 @@
       	      <xpath expr="//h2[@id='gatewayhook']" position="after">
       	          <div attrs="{'invisible': [('gateway_model', '!=', 'esms.twilio')]}">
 		      <group>
-	                  <field name="twilio_account_sid"/>
-                          <field name="twilio_auth_token"/>
+	                  <field name="twilio_account_sid" groups="base.group_erp_manager,base.group_system"/>
+                          <field name="twilio_auth_token" groups="base.group_erp_manager,base.group_system"/>
                           <field name="twilio_last_check_date"/>
-                          <button name="twilio_quick_setup" type="object" string="Quick Setup" help="Points Twilio to your odoo server"/>
+                          <button name="twilio_quick_setup" type="object" string="Quick Setup" help="Points Twilio to your odoo server" groups="base.group_erp_manager,base.group_system"/>
                           <button name="twilio_check_all_messages" type="object" string="Check New Messages" help="Check new incoming messages"/>
                       </group>
     	          </div>

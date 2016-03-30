@@ -9,18 +9,18 @@
       	      <form create="false" edit="false">
       	          <group>
       	              <field name="my_date"/>
-      	              <field name="sms_gateway_message_id"/>
+      	              <field name="sms_gateway_message_id" groups="base.group_erp_manager,base.group_system"/>
       	              <field name="account_id" options="{'no_open': True}"/>
-      	              <field name="model_id" options="{'no_open': True}"/>
-      	              <field name="model_name"/>
-      	              <field name="field_id" options="{'no_open': True}"/>
-      	              <field name="record_id"/>
+      	              <field name="model_id" options="{'no_open': True}" groups="base.group_erp_manager,base.group_system"/>
+      	              <field name="model_name" groups="base.group_erp_manager,base.group_system"/>
+      	              <field name="field_id" options="{'no_open': True}" groups="base.group_erp_manager,base.group_system"/>
+      	              <field name="record_id" groups="base.group_erp_manager,base.group_system"/>
       	              <field name="create_uid"/>
       	              <field name="direction"/>
       	              <field name="record_name"/>
       	              <field name="from_mobile"/>
       	              <field name="to_mobile"/>
-      	              <field name="status_string"/>
+      	              <field name="status_string" groups="base.group_erp_manager,base.group_system"/>
       	              <field name="status_code"/>
       	              <field name="delivary_error_string"/>
       	              <field name="sms_content"/>
