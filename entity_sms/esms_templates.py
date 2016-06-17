@@ -56,7 +56,7 @@ class esms_templates(models.Model):
     _name = "esms.templates"
     
     name = fields.Char(required=True, string='Template Name')
-    model_id = fields.Many2one('ir.model', string='Applies to', help="The kind of document with with this template can be used")
+    model_id = fields.Many2one('ir.model', domain="[('model','in',['crm.lead','res.partner'])]", string='Applies to', help="The kind of document with with this template can be used")
     model = fields.Char(related="model_id.model", string='Related Document Model', select=True, store=True, readonly=True)
     template_body = fields.Text('Body', translate=True, sanitize=False, help="Plain text version of the message (placeholders may be used here)")
     sms_from = fields.Char(string='From (Mobile)', help="Sender mobile number (placeholders may be used here). If not set, the default value will be the author's mobile number.")
@@ -95,7 +95,7 @@ class esms_templates(models.Model):
            :param str model: model name of the document record this mail is related to.
            :param int res_id: id of document records those mails are related to.
         """
-        
+
         # try to load the template
         #try:
         template = mako_template_env.from_string(tools.ustr(template))
@@ -105,15 +105,14 @@ class esms_templates(models.Model):
 
         # prepare template variables
         user = self.env.user
-        record = self.env[model].browse(res_id)
-        
+
         variables = {
             'user': user
         }
-        
-        
-        
-        variables['object'] = record
+
+	if model:
+	    variables['object'] = self.env[model].browse(res_id)
+
         try:
             render_result = template.render(variables)
         except Exception:

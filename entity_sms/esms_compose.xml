@@ -8,9 +8,9 @@
       	      <form>
       	          <span style="color:red;font-size:20px;"><field name="error_message"/></span>
       	          <group>
-      	              <field name="record_id" invisible="1"/>      	              
+      	              <field name="record_id" invisible="1"/>
                       <field name="model_id" invisible="1"/>
-      	              <field name="template_id" domain="[('model_id.model','=',model_id)]" />
+      	              <field name="template_id" domain="['|', ('model_id.model','=',model_id),('model_id','=',False)]" />
       	              <field name="from_mobile" widget="selection"/>
       	              <field name="to_number" />
       	              <field name="sms_content"/>
@@ -24,7 +24,7 @@
       	          </group>
                   <footer>
                       <button type="object" name="send_entity" string="Send SMS"/>
-                  </footer>      	          
+                  </footer>
       	      </form>
       	  </field>
       </record>
